@@ -392,7 +392,9 @@ export default {
       const tooltip = this.$refs.tooltip;
       if (tooltip) {
         tooltip.setExpectedState(false);
-        tooltip.handleClosePopper();
+        setTimeout(() => {
+          tooltip.handleClosePopper();
+        }, 300);
       }
       const cell = getCell(event);
       if (!cell) return;

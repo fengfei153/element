@@ -6,7 +6,7 @@
   const copyArray = (arr, props) => {
     if (!arr || !Array.isArray(arr) || !props) return arr;
     const result = [];
-    const configurableProps = ['__IS__FLAT__OPTIONS', 'label', 'value', 'disabled'];
+    const configurableProps = ['__IS__FLAT__OPTIONS', 'label', 'value', 'disabled', 'itemClass'];
     const childrenProp = props.children || 'children';
     arr.forEach(item => {
       const itemCopy = {};
@@ -65,7 +65,7 @@
       activeOptions: {
         get() {
           const activeValue = this.activeValue;
-          const configurableProps = ['label', 'value', 'children', 'disabled'];
+          const configurableProps = ['label', 'value', 'children', 'disabled', 'itemClass'];
 
           const formatOptions = options => {
             options.forEach(option => {
@@ -273,7 +273,8 @@
                 'el-cascader-menu__item': true,
                 'el-cascader-menu__item--extensible': item.children,
                 'is-active': item.value === activeValue[menuIndex],
-                'is-disabled': item.disabled
+                'is-disabled': item.disabled,
+                [item.itemClass]: true
               }}
               ref={item.value === activeValue[menuIndex] ? 'activeItem' : null}
               {...events}
