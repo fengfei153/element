@@ -118,11 +118,7 @@
         const len = this.activeOptions.length;
         this.activeValue.splice(menuIndex, len, item.value);
         this.activeOptions.splice(menuIndex + 1, len, item.children);
-        if (this.changeOnSelect) {
-          this.$emit('pick', this.activeValue.slice(), false);
-        } else {
-          this.$emit('activeItemChange', this.activeValue);
-        }
+        this.$emit('activeItemChange', this.activeValue);
       },
       scrollMenu(menu) {
         scrollIntoView(menu, menu.getElementsByClassName('is-active')[0]);
@@ -241,6 +237,7 @@
               events.on[triggerEvent] = triggerHandler;
               if (triggerEvent === 'mouseenter' && this.changeOnSelect) {
                 events.on.click = () => {
+                  this.select(item, menuIndex);
                   if (this.activeValue.indexOf(item.value) !== -1) {
                     this.$emit('closeInside', true);
                   }
