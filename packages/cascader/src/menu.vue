@@ -259,6 +259,32 @@
                 this.$nextTick(() => this.scrollMenu(this.$refs.menus[menuIndex]));
               };
             }
+          } else if (item.children) { // 如果选项被禁用但是有children，则允许展开但是不可选中  by fengfei153
+            let triggerEvent = {
+              click: 'click',
+              hover: 'mouseenter'
+            }[expandTrigger];
+            const triggerHandler = () => {
+              if (this.visible) {
+                this.activeItem(item, menuIndex);
+                this.$nextTick(() => {
+                  // adjust self and next level
+                  this.scrollMenu(this.$refs.menus[menuIndex]);
+                  this.scrollMenu(this.$refs.menus[menuIndex + 1]);
+                });
+              }
+            };
+            events.on[triggerEvent] = triggerHandler;
+            events.on['mousedown'] = () => {
+              this.clicking = true;
+            };
+            events.on['focus'] = () => { // focus 选中
+              if (this.clicking) {
+                this.clicking = false;
+                return;
+              }
+              triggerHandler();
+            };
           }
           if (!item.disabled && !item.children) { // no children set id
             itemId = `${menuId}-${itemIndex}`;
