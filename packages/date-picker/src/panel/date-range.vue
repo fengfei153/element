@@ -539,6 +539,7 @@
         if (this.maxDate === maxDate && this.minDate === minDate) {
           return;
         }
+        this.$emit('select-date', val);
         this.onPick && this.onPick(val);
         this.maxDate = maxDate;
         this.minDate = minDate;

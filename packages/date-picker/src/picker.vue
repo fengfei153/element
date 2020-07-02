@@ -872,6 +872,9 @@ export default {
         this.emitInput(date);
         this.picker.resetView && this.picker.resetView();
       });
+      this.picker.$on('select-date', (val) => {
+        this.$emit('select-date', val);
+      });
 
       this.picker.$on('select-range', (start, end, pos) => {
         if (this.refInput.length === 0) return;
