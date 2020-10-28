@@ -344,7 +344,7 @@ export default {
             __IS__FLAT__OPTIONS: true,
             value: optionStack.map(item => item[this.valueKey]),
             label: this.renderFilteredOptionLabel(value, optionStack),
-            disabled: optionStack.some(item => item[this.disabledKey])
+            disabled: optionStack[optionStack.length - 1][this.disabledKey]
           };
         });
       } else {
